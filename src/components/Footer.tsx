@@ -19,10 +19,10 @@ export default function Footer() {
               Atendemos residências, condomínios e indústrias com qualidade e excelência.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/Anfer.Esquadrias/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/anfer.esquadrias/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -33,23 +33,23 @@ export default function Footer() {
             <h3 className="font-bold text-lg mb-4">Nossos Serviços</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/servicos/portoes" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/servico/portao-basculante" className="text-gray-300 hover:text-white transition-colors">
                   Portões
                 </Link>
               </li>
               <li>
-                <Link href="/servicos/guardas-corpo" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/servico/guarda-corpo" className="text-gray-300 hover:text-white transition-colors">
                   Guarda-Corpos
                 </Link>
               </li>
               <li>
-                <Link href="/servicos/portas-aco" className="text-gray-300 hover:text-white transition-colors">
-                  Portas de Aço
+                <Link href="/servico/grades-para-janelas" className="text-gray-300 hover:text-white transition-colors">
+                  Grades de Proteção
                 </Link>
               </li>
               <li>
-                <Link href="/servicos/elevadores" className="text-gray-300 hover:text-white transition-colors">
-                  Elevadores
+                <Link href="/servico/elevadores" className="text-gray-300 hover:text-white transition-colors">
+                  Serviços Industriais
                 </Link>
               </li>
               <li>
@@ -93,6 +93,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/servicos/todos" className="text-gray-300 hover:text-white transition-colors">
+                  Todos os Serviços
+                </Link>
+              </li>
+              <li>
                 <Link href="/manutencao" className="text-gray-300 hover:text-white transition-colors">
                   Agendar Manutenção
                 </Link>
@@ -100,11 +105,6 @@ export default function Footer() {
               <li>
                 <Link href="/contato" className="text-gray-300 hover:text-white transition-colors">
                   Fale Conosco
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="text-gray-300 hover:text-white transition-colors">
-                  Área Administrativa
                 </Link>
               </li>
             </ul>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Search, Filter } from 'lucide-react'
+import { Search, SlidersHorizontal } from 'lucide-react'
 import { services, serviceCategories } from '@/data/services'
 import ImageCarousel from '@/components/ImageCarousel'
 
@@ -52,7 +52,7 @@ export default function AllServicesPage() {
 
             {/* Category Filter */}
             <div className="flex items-center gap-2">
-              <Filter className="h-5 w-5 text-gray-400" />
+              <SlidersHorizontal className="h-5 w-5 text-gray-400" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}

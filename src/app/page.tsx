@@ -14,26 +14,53 @@ import {
   Clock
 } from 'lucide-react'
 import ImageCarousel from '@/components/ImageCarousel'
+import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import { services as allServices } from '@/data/services'
 
 export default function HomePage() {
-  // Selecionar alguns serviços em destaque para a home
-  const featuredServices = [
+  // Agrupar serviços por categoria para exibir múltiplas imagens
+  const featuredCategories = [
     {
-      ...allServices.find(s => s.slug === 'portao-basculante')!,
-      categoryTitle: 'Portões e Acessos'
+      title: 'Portões',
+      description: 'Portões basculantes, deslizantes, portas de aço e automáticas',
+      images: [
+        '/imgs/portaoBasculante.png',
+        '/imgs/portaoDeslizante.png',
+        '/imgs/portadeAco.png',
+        '/imgs/portadeEnrolar.png'
+      ],
+      href: '/servicos/todos'
     },
     {
-      ...allServices.find(s => s.slug === 'guarda-corpo')!,
-      categoryTitle: 'Guarda-Corpos e Estruturas'
+      title: 'Corrimãos',
+      description: 'Guarda-corpos, corrimãos e estruturas metálicas',
+      images: [
+        '/imgs/corrimao.png',
+        '/imgs/guradaCorpoResidencial.png',
+        '/imgs/guardaCorpoIndustrial.png',
+        '/imgs/mezanino.png'
+      ],
+      href: '/servicos/todos'
     },
     {
-      ...allServices.find(s => s.slug === 'grades-para-janelas')!,
-      categoryTitle: 'Grades de Proteção'
+      title: 'Grades',
+      description: 'Grades de proteção para janelas e segurança',
+      images: [
+        '/imgs/gradesJanela.png',
+        '/imgs/gradesProtecao.png'
+      ],
+      href: '/servicos/todos'
     },
     {
-      ...allServices.find(s => s.slug === 'elevadores')!,
-      categoryTitle: 'Serviços Industriais'
+      title: 'Outros Serviços',
+      description: 'Serviços industriais, elevadores, soldas e muito mais',
+      images: [
+        '/imgs/elevadorIndustrial.png',
+        '/imgs/portasABS.png',
+        '/imgs/portasRapidasIndustriais.png',
+        '/imgs/soldaEmGeral.png'
+      ],
+      href: '/servicos/todos'
     }
   ]
 
@@ -63,7 +90,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white py-32 md:py-40 overflow-hidden min-h-[600px] md:min-h-[700px]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -73,7 +100,7 @@ export default function HomePage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-900/95 to-red-700/95"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-900/70 to-red-700/70"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
@@ -144,35 +171,32 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredServices.map((service, index) => (
+            {featuredCategories.map((category, index) => (
               <Link 
                 key={index}
-                href={`/servico/${service.slug}`}
+                href={category.href}
                 className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all group"
               >
                 {/* Image Carousel */}
                 <div className="aspect-video">
                   <ImageCarousel 
-                    images={service.images} 
-                    alt={service.title}
+                    images={category.images} 
+                    alt={category.title}
                     autoPlay={true}
-                    interval={4000}
+                    interval={3500}
                   />
                 </div>
                 
                 {/* Content */}
                 <div className="p-6">
-                  <div className="text-xs text-red-600 font-semibold mb-2 uppercase">
-                    {service.categoryTitle}
-                  </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    {service.title}
+                    {category.title}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-2">
-                    {service.description}
+                    {category.description}
                   </p>
                   <div className="flex items-center text-red-600 font-medium">
-                    Ver detalhes
+                    Ver serviços
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -183,13 +207,19 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 opacity-50"></div>
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-200 mb-4">
               Por que escolher a ANFER?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Nossa experiência e compromisso com a qualidade fazem a diferença
             </p>
           </div>
@@ -200,10 +230,10 @@ export default function HomePage() {
                 <div className="bg-red-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <feature.icon className="h-10 w-10 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                <h3 className="text-xl font-semibold text-gray-200 mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-300">
                   {feature.description}
                 </p>
               </div>
@@ -255,29 +285,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-8 shadow-lg">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6">
-                  "Excelente trabalho! A equipe da ANFER foi muito profissional e o resultado superou nossas expectativas. Recomendo!"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                    <Users className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Cliente Satisfeito</div>
-                    <div className="text-gray-500">Projeto Residencial</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialsCarousel />
         </div>
       </section>
     </div>
