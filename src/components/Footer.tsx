@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { MessageCircle, Mail, MapPin, Clock, Facebook, Instagram } from 'lucide-react'
 
 export default function Footer() {
@@ -8,11 +9,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-red-600 text-white p-2 rounded-lg">
-                <span className="font-bold text-xl">ANFER</span>
+            <div className="flex items-center space-x-3 mb-4">
+              <Image 
+                src="/LogoAnfer.png" 
+                alt="ANFER Logo" 
+                width={50} 
+                height={50}
+                className="object-contain"
+              />
+              <div>
+                <span className="font-bold text-xl block">ANFER</span>
+                <span className="text-sm text-gray-400">Esquadrias Metálicas</span>
               </div>
-              <span className="font-bold text-xl">Esquadrias Metálicas</span>
             </div>
             <p className="text-gray-300 mb-4">
               Especialistas em esquadrias metálicas, portões, grades e equipamentos industriais.
@@ -78,7 +86,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-red-400" />
-                <span className="text-gray-300">Seg-Sex: 8h às 18h</span>
+                <span className="text-gray-300">Seg-Sáb: 8h às 18h</span>
               </div>
             </div>
           </div>

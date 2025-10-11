@@ -93,14 +93,14 @@ export default function HomePage() {
       <section className="relative text-white py-32 md:py-40 overflow-hidden min-h-[600px] md:min-h-[700px]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/imgs/heroImg.jpg"
+        <Image
+            src="/imgs/serralheria.jpg"
             alt="ANFER Esquadrias Metálicas"
             fill
             className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-900/70 to-red-700/70"></div>
+          priority
+        />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-700/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
@@ -108,7 +108,7 @@ export default function HomePage() {
             <div>
               <h1 className="text-4xl lg:text-6xl font-bold mb-6">
                 ANFER
-                <span className="block text-red-200">Esquadrias Metálicas</span>
+                <span className="block text-blue-200">Esquadrias Metálicas</span>
               </h1>
               <p className="text-xl mb-8 text-gray-100">
                 Especialistas em esquadrias metálicas, portões, grades, guarda-corpos, 
@@ -243,28 +243,39 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-red-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/imgs/heroImg.jpg"
+            alt="ANFER Projetos"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-red-900/85 to-red-700/85"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl font-bold mb-6 text-white">
             Pronto para começar seu projeto?
           </h2>
-          <p className="text-xl mb-8 text-red-100 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
             Entre em contato conosco e solicite um orçamento gratuito. 
             Nossa equipe está pronta para ajudar você.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="https://wa.me/5511940093757"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-red-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
+          target="_blank"
+          rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center shadow-lg"
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               WhatsApp
             </a>
             <Link 
               href="/manutencao"
-              className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
+              className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-red-600 px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center shadow-lg"
             >
               <Wrench className="mr-2 h-5 w-5" />
               Agendar Manutenção

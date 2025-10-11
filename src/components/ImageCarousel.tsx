@@ -11,7 +11,7 @@ interface ImageCarouselProps {
   interval?: number
 }
 
-export default function ImageCarousel({ images, alt, autoPlay = false, interval = 3000 }: ImageCarouselProps) {
+function ImageCarousel({ images, alt, autoPlay = false, interval = 3000 }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -98,3 +98,5 @@ export default function ImageCarousel({ images, alt, autoPlay = false, interval 
     </div>
   )
 }
+
+export default ImageCarousel

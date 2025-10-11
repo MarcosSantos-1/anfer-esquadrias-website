@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, Mail, MessageCircle } from 'lucide-react'
 
 export default function Header() {
@@ -41,12 +42,17 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-red-600 text-white p-2 rounded-lg">
-              <span className="font-bold text-xl">ANFER</span>
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-bold text-xl text-gray-900">Esquadrias Metálicas</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image 
+              src="/LogoAnfer.png" 
+              alt="ANFER Logo" 
+              width={50} 
+              height={50}
+              className="object-contain"
+            />
+            <div>
+              <span className="font-bold text-xl text-gray-900 block">ANFER</span>
+              <span className="text-sm text-gray-600 hidden sm:block">Esquadrias Metálicas</span>
             </div>
           </Link>
 

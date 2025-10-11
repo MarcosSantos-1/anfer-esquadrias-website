@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Search, SlidersHorizontal } from 'lucide-react'
+import { Search, SlidersHorizontal, ArrowRight, CheckCircle } from 'lucide-react'
 import { services, serviceCategories } from '@/data/services'
 import ImageCarousel from '@/components/ImageCarousel'
 
@@ -35,7 +35,7 @@ export default function AllServicesPage() {
       </section>
 
       {/* Search and Filter Section */}
-      <section className="py-8 bg-white shadow-sm sticky top-0 z-40">
+      <section className="py-8 bg-white shadow-sm">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
@@ -46,7 +46,7 @@ export default function AllServicesPage() {
                 placeholder="Buscar serviço..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
@@ -56,7 +56,7 @@ export default function AllServicesPage() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent min-w-[200px]"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent min-w-[200px] text-gray-900"
               >
                 <option value="all">Todas as Categorias</option>
                 {serviceCategories.map((category) => (
@@ -90,30 +90,45 @@ export default function AllServicesPage() {
                 <Link
                   key={service.id}
                   href={`/servico/${service.slug}`}
-                  className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all group"
+                  className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100"
                 >
                   {/* Image Carousel */}
-                  <div className="aspect-video">
+                  <div className="aspect-video relative">
                     <ImageCarousel 
                       images={service.images} 
                       alt={service.title}
                       autoPlay={false}
                     />
+                    {/* Category Badge */}
+                    <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                      {service.category}
+                    </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6">
-                    <div className="text-xs text-red-600 font-semibold mb-2 uppercase">
-                      {service.category}
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-2">
+                    <p className="text-gray-600 mb-6 line-clamp-2">
                       {service.description}
                     </p>
-                    <div className="text-red-600 font-medium">
-                      Ver detalhes →
+                    
+                    {/* Features Preview */}
+                    <div className="space-y-2 mb-6">
+                      {service.features.slice(0, 3).map((feature, idx) => (
+                        <div key={idx} className="flex items-center text-sm text-gray-700">
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <span className="text-red-600 font-semibold group-hover:underline">
+                        Saiba mais
+                      </span>
+                      <ArrowRight className="h-5 w-5 text-red-600 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </Link>
