@@ -100,15 +100,15 @@ export default function HomePage() {
             className="object-cover"
           priority
         />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-700/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-800/80 to-indigo-900/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-6xl text-red-200 font-bold mb-6">
                 ANFER
-                <span className="block text-blue-200">Esquadrias Metálicas</span>
+                <span className="block text-gray-100">Esquadrias Metálicas</span>
               </h1>
               <p className="text-xl mb-8 text-gray-100">
                 Especialistas em esquadrias metálicas, portões, grades, guarda-corpos, 

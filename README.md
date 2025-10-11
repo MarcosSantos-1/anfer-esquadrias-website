@@ -65,6 +65,15 @@ Para acessar o painel administrativo, vá para: http://localhost:3000/admin
 
 ⚠️ **IMPORTANTE**: Altere essas credenciais em produção!
 
+## 📞 Informações de Contato
+
+- **Telefone/WhatsApp**: (11) 94009-3757
+- **E-mail**: contato@anferesquadrias.com
+- **Endereço**: Rua Rio Meriti, 120 - São Miguel Pta - São Paulo - SP
+- **Horário**: Seg-Sáb: 8h às 18h
+- **Facebook**: https://www.facebook.com/Anfer.Esquadrias/
+- **Instagram**: https://www.instagram.com/anfer.esquadrias/
+
 ## 📁 Estrutura do Projeto
 
 ```
