@@ -15,7 +15,7 @@ model User {
   email     String   @unique
   password  String
   name      String
-  role      Role     @default(ADMIN)
+  role      String   @default("ADMIN") // ADMIN, EDITOR
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -23,15 +23,20 @@ model User {
 }
 
 model Service {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  category    String
-  image       String?
-  isActive    Boolean  @default(true)
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  category        String
+  description     String
+  fullDescription String
+  images          String   // JSON array
+  features        String   // JSON array
+  seoTitle        String
+  seoDescription  String
+  isActive        Boolean  @default(true)
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@map("services")
 }
@@ -51,17 +56,17 @@ model Project {
 }
 
 model MaintenanceRequest {
-  id          String   @id @default(cuid())
-  name        String
-  email       String
-  phone       String
-  service     String
-  description String
-  address     String?
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String
+  service       String
+  description   String
+  address       String?
   preferredDate String?
-  status      MaintenanceStatus @default(PENDING)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  status        String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("maintenance_requests")
 }
@@ -85,14 +90,58 @@ model CompanyInfo {
   @@map("company_info")
 }
 
-enum Role {
-  ADMIN
-  EDITOR
+model FurnitureProduct {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  category         String
+  shortDescription String
+  fullDescription  String
+  standardWidth    Float
+  standardHeight   Float
+  standardDepth    Float
+  sizeUnit         String   @default("cm")
+  basePrice        Float
+  images           String   // JSON array de URLs
+  features         String   // JSON array
+  materials        String   // JSON array
+  colors           String   // JSON array
+  customizable     Boolean  @default(true)
+  isActive         Boolean  @default(true)
+  order            Int      @default(0)
+  seoTitle         String
+  seoDescription   String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("furniture_products")
 }
 
-enum MaintenanceStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("NEW") // NEW, READ, REPLIED, ARCHIVED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_messages")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  clientName  String
+  company     String?  // Empresa ou cargo do cliente
+  clientImage String?
+  rating      Int      @default(5) // 1-5 estrelas
+  testimonial String
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("testimonials")
 }

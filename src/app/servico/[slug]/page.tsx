@@ -2,8 +2,21 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MessageCircle, Mail, Wrench, CheckCircle, ArrowLeft } from 'lucide-react'
-import { services } from '@/data/services'
 import ImageCarousel from '@/components/ImageCarousel'
+
+interface Service {
+  id: string
+  title: string
+  slug: string
+  category: string
+  description: string
+  fullDescription: string
+  images: string[]
+  features: string[]
+  seoTitle: string
+  seoDescription: string
+  isActive: boolean
+}
 
 interface ServicePageProps {
   params: Promise<{
@@ -11,7 +24,41 @@ interface ServicePageProps {
   }>
 }
 
+async function getService(slug: string): Promise<Service | null> {
+  try {
+    // Em produção, use a URL completa do seu site
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/services`, {
+      cache: 'no-store' // Sempre buscar dados atualizados
+    })
+    
+    if (!res.ok) return null
+    
+    const services = await res.json()
+    return services.find((s: Service) => s.slug === slug) || null
+  } catch (error) {
+    console.error('Erro ao buscar serviço:', error)
+    return null
+  }
+}
+
+async function getAllServices(): Promise<Service[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/services`, {
+      cache: 'no-store'
+    })
+    
+    if (!res.ok) return []
+    return res.json()
+  } catch (error) {
+    console.error('Erro ao buscar serviços:', error)
+    return []
+  }
+}
+
 export async function generateStaticParams() {
+  const services = await getAllServices()
   return services.map((service) => ({
     slug: service.slug,
   }))
@@ -19,7 +66,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params
-  const service = services.find((s) => s.slug === slug)
+  const service = await getService(slug)
   
   if (!service) {
     return {
@@ -40,15 +87,22 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params
-  const service = services.find((s) => s.slug === slug)
+  const service = await getService(slug)
 
   if (!service) {
     notFound()
   }
 
-  const relatedServices = services
+  const allServices = await getAllServices()
+  const relatedServices = allServices
     .filter((s) => s.category === service.category && s.id !== service.id)
     .slice(0, 3)
+
+  // Mensagem personalizada do WhatsApp para cada serviço
+  const whatsappMessage = encodeURIComponent(
+    `Olá! Estou interessado em *${service.title}*. Gostaria de solicitar um orçamento.`
+  )
+  const whatsappLink = `https://wa.me/5511940093757?text=${whatsappMessage}`
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -73,7 +127,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
-                href="https://wa.me/5511940093757"
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
@@ -99,9 +153,23 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              {/* Image Carousel */}
+              {/* Image Carousel ou Imagem Única */}
               <div className="mb-8">
-                <ImageCarousel images={service.images} alt={service.title} />
+                {service.images.length > 1 ? (
+                  <ImageCarousel images={service.images} alt={service.title} />
+                ) : service.images.length === 1 ? (
+                  <div className="rounded-xl overflow-hidden">
+                    <img 
+                      src={service.images[0]} 
+                      alt={service.title}
+                      className="w-full aspect-video object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="rounded-xl overflow-hidden bg-gray-200 aspect-video flex items-center justify-center">
+                    <span className="text-gray-400 text-lg">Sem imagem disponível</span>
+                  </div>
+                )}
               </div>
 
               {/* Description */}
@@ -109,7 +177,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
                   Sobre {service.title}
                 </h2>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed whitespace-pre-line">
                   {service.fullDescription}
                 </p>
                 
@@ -137,7 +205,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a 
-                    href="https://wa.me/5511940093757"
+                    href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center"
@@ -173,7 +241,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </h3>
                 <div className="space-y-3">
                   <a 
-                    href="https://wa.me/5511940093757"
+                    href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center text-gray-700 hover:text-green-600 transition-colors"

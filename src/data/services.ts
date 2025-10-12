@@ -18,15 +18,16 @@ export const services: Service[] = [
     title: 'Portão Basculante',
     slug: 'portao-basculante',
     category: 'Portões e Acessos',
-    description: 'Portões que se abrem para cima, ideais para garagens e entradas de veículos.',
-    fullDescription: 'Portões basculantes são a solução perfeita para quem busca praticidade e segurança. Com abertura vertical, economizam espaço e podem ser automatizados com controle remoto.',
+    description: 'Portões com abertura vertical para cima, perfeitos para garagens residenciais e comerciais. Combinam praticidade, segurança e economia de espaço.',
+    fullDescription: 'Os portões basculantes da ANFER são fabricados com materiais de primeira qualidade, oferecendo a solução ideal para quem busca praticidade e segurança. Com sistema de abertura vertical que economiza espaço lateral, são perfeitos para garagens e entradas de veículos. Podem ser automatizados com sistemas de controle remoto e sensores de segurança de última geração. Disponíveis em diversos materiais como aço galvanizado, alumínio e madeira, com acabamentos personalizados que combinam com o estilo da sua fachada. Nossa equipe técnica especializada realiza instalação profissional garantindo funcionamento suave e durabilidade prolongada.',
     images: ['/imgs/portaoBasculante.png'],
     features: [
-      'Abertura automática',
-      'Controle remoto',
-      'Sensor de segurança',
-      'Instalação rápida',
-      'Diversos materiais'
+      'Sistema de automação completo com controle remoto',
+      'Sensores de segurança anti-esmagamento',
+      'Estrutura reforçada e balanceada',
+      'Instalação profissional e garantida',
+      'Diversos materiais e acabamentos',
+      'Manutenção preventiva disponível'
     ],
     seoTitle: 'Portão Basculante - ANFER Esquadrias Metálicas | São Paulo',
     seoDescription: 'Portão basculante com instalação profissional. Automação, controle remoto e máxima segurança. Orçamento gratuito!'
@@ -36,15 +37,16 @@ export const services: Service[] = [
     title: 'Portão Deslizante',
     slug: 'portao-deslizante',
     category: 'Portões e Acessos',
-    description: 'Portões que deslizam lateralmente, perfeitos para entradas largas.',
-    fullDescription: 'Os portões deslizantes são ideais para grandes vãos. Com movimento lateral suave e silencioso, garantem durabilidade e praticidade no dia a dia.',
+    description: 'Portões com movimento lateral suave e silencioso, ideais para grandes vãos e espaços com limitação frontal. Solução elegante e prática.',
+    fullDescription: 'Os portões deslizantes fabricados pela ANFER são a escolha perfeita para grandes vãos e propriedades que não dispõem de espaço frontal para abertura. Projetados com sistema de trilhos e rodízios de alta qualidade, proporcionam movimento lateral extremamente suave e silencioso. Fabricados em aço galvanizado, ferro ou alumínio, oferecem máxima durabilidade mesmo em uso intenso. O sistema de automação utiliza motores potentes e confiáveis, com controle remoto de longo alcance e possibilidade de integração com smartphones. Ideais para residências, condomínios, indústrias e estabelecimentos comerciais que necessitam de acesso rápido e seguro. Nossa equipe realiza projeto personalizado considerando as características do terreno e as necessidades específicas de cada cliente.',
     images: ['/imgs/portaoDeslizante.png'],
     features: [
-      'Economia de espaço',
-      'Abertura suave',
-      'Baixo ruído',
-      'Alta durabilidade',
-      'Automação completa'
+      'Sistema de trilhos reforçados',
+      'Automação com motor potente e silencioso',
+      'Rodízios de alta durabilidade',
+      'Baixíssimo ruído operacional',
+      'Perfeito para grandes vãos',
+      'Design moderno e personalizável'
     ],
     seoTitle: 'Portão Deslizante - ANFER Esquadrias Metálicas | São Paulo',
     seoDescription: 'Portão deslizante de alta qualidade. Instalação profissional, automação e garantia. Solicite um orçamento!'
@@ -54,15 +56,16 @@ export const services: Service[] = [
     title: 'Porta de Aço',
     slug: 'porta-de-aco',
     category: 'Portões e Acessos',
-    description: 'Portas de aço robustas para máxima segurança residencial e comercial.',
-    fullDescription: 'Portas de aço fabricadas com materiais de primeira qualidade, oferecendo máxima proteção contra invasões e isolamento térmico e acústico.',
+    description: 'Portas de aço de alta segurança com design moderno. Proteção máxima para sua residência ou estabelecimento comercial, com isolamento térmico e acústico superior.',
+    fullDescription: 'As portas de aço ANFER são sinônimo de segurança e durabilidade. Fabricadas com chapa de aço de alta espessura e estrutura reforçada, oferecem proteção máxima contra tentativas de invasão. Equipadas com fechaduras multiponto de alta segurança, dobradiças anti-arrombamento e reforços internos estrategicamente posicionados. O isolamento térmico e acústico é proporcionado por preenchimento interno com poliuretano expandido, garantindo conforto térmico no ambiente e redução significativa de ruídos externos. Disponíveis em diversos modelos, desde linhas clássicas até designs modernos e minimalistas, com acabamento em pintura eletrostática em variadas cores e texturas, incluindo opções que imitam madeira. Perfeitas para residências, apartamentos, escritórios, lojas e estabelecimentos que exigem alto nível de segurança. Instalação profissional com ajustes precisos para vedação perfeita.',
     images: ['/imgs/portadeAco.png'],
     features: [
-      'Alta resistência',
-      'Isolamento térmico',
-      'Design moderno',
-      'Fácil manutenção',
-      'Diversas cores'
+      'Chapa de aço reforçada de alta espessura',
+      'Fechadura multiponto de segurança',
+      'Isolamento térmico e acústico superior',
+      'Design moderno e elegante',
+      'Pintura eletrostática durável',
+      'Dobradiças anti-arrombamento'
     ],
     seoTitle: 'Porta de Aço - ANFER Esquadrias Metálicas | São Paulo',
     seoDescription: 'Porta de aço de alta segurança. Isolamento térmico e acústico. Instalação profissional. Orçamento gratuito!'
@@ -128,15 +131,16 @@ export const services: Service[] = [
     title: 'Guarda-Corpo',
     slug: 'guarda-corpo',
     category: 'Guarda-Corpos e Estruturas',
-    description: 'Guarda-corpos em aço inox e outros materiais para escadas e varandas.',
-    fullDescription: 'Guarda-corpos fabricados com materiais de alta qualidade, garantindo segurança e elegância para sua residência ou empresa.',
+    description: 'Guarda-corpos elegantes e seguros em aço inox, vidro e ferro para escadas, varandas e mezaninos. Segurança com design sofisticado.',
+    fullDescription: 'Os guarda-corpos ANFER combinam segurança obrigatória com design sofisticado, sendo perfeitos para residências, empresas, condomínios e áreas industriais. Fabricamos em diversos materiais incluindo aço inox 304 ou 316 com acabamento escovado ou polido, ferro com pintura eletrostática, e sistemas mistos com vidro temperado. Todos os projetos seguem rigorosamente as normas técnicas NBR 14718 garantindo altura adequada, resistência estrutural e espaçamento seguro entre elementos. Oferecemos modelos com tubos, cabos de aço, vidro temperado e designs personalizados que se adaptam perfeitamente ao estilo arquitetônico do ambiente. A instalação é realizada por equipe especializada com fixações robustas em concreto, alvenaria ou estruturas metálicas. Ideais para escadas internas e externas, varandas, sacadas, mezaninos, rampas de acesso e áreas industriais. Além da segurança, agregam valor estético e valorização ao imóvel.',
     images: ['/imgs/guradaCorpoResidencial.png', '/imgs/guardaCorpoIndustrial.png'],
     features: [
-      'Diversos materiais',
-      'Design personalizado',
-      'Alta resistência',
-      'Instalação profissional',
-      'Normas de segurança'
+      'Aço inox 304/316 ou ferro de alta qualidade',
+      'Conformidade com NBR 14718',
+      'Design personalizado para cada projeto',
+      'Modelos residenciais e industriais',
+      'Instalação profissional certificada',
+      'Garantia total de fabricação'
     ],
     seoTitle: 'Guarda-Corpo - ANFER Esquadrias Metálicas | São Paulo',
     seoDescription: 'Guarda-corpo em aço inox e outros materiais. Segurança e design para sua casa ou empresa. Orçamento grátis!'
@@ -146,15 +150,16 @@ export const services: Service[] = [
     title: 'Corrimão',
     slug: 'corrimao',
     category: 'Guarda-Corpos e Estruturas',
-    description: 'Corrimãos em diversos materiais para escadas e rampas.',
-    fullDescription: 'Corrimãos fabricados seguindo as normas de acessibilidade (NBR 9050), com acabamento perfeito e instalação profissional.',
+    description: 'Corrimãos em aço inox, ferro e alumínio para escadas e rampas. Projetos acessíveis conforme NBR 9050, unindo funcionalidade e elegância.',
+    fullDescription: 'Os corrimãos ANFER são projetados e fabricados em total conformidade com a NBR 9050, norma brasileira de acessibilidade, garantindo segurança e conforto para todos os usuários. Fabricamos em aço inox com acabamento escovado ou polido, ferro com pintura eletrostática em diversas cores, e alumínio anodizado. Os projetos consideram altura adequada, formato ergonômico, extensões nas extremidades e fixações resistentes conforme exigências técnicas e de acessibilidade. Ideais para escadas residenciais, comerciais e industriais, rampas de acesso, áreas públicas e ambientes que necessitam atender legislação de acessibilidade. Oferecemos corrimãos de parede fixados com suportes robustos, corrimãos para guarda-corpos e modelos duplos para atender diferentes alturas. A instalação é executada por profissionais especializados garantindo firmeza, alinhamento perfeito e acabamento impecável. Proporcionam apoio seguro e confiável para pessoas de todas as idades e mobilidades.',
     images: ['/imgs/corrimao.png'],
     features: [
-      'NBR 9050',
-      'Diversos materiais',
-      'Acabamento perfeito',
-      'Instalação rápida',
-      'Acessibilidade'
+      'Conformidade total com NBR 9050',
+      'Materiais nobres: aço inox, ferro e alumínio',
+      'Acabamento ergonômico e seguro',
+      'Instalação profissional certificada',
+      'Modelos para diversas aplicações',
+      'Garantia de qualidade e durabilidade'
     ],
     seoTitle: 'Corrimão - ANFER Esquadrias Metálicas | São Paulo',
     seoDescription: 'Corrimão conforme NBR 9050. Materiais de qualidade e instalação profissional. Solicite orçamento!'
@@ -164,15 +169,16 @@ export const services: Service[] = [
     title: 'Mezanino',
     slug: 'mezanino',
     category: 'Guarda-Corpos e Estruturas',
-    description: 'Estruturas metálicas para mezaninos industriais e comerciais.',
-    fullDescription: 'Fabricação e instalação de mezaninos metálicos sob medida, maximizando o aproveitamento do espaço vertical.',
+    description: 'Estruturas metálicas robustas para mezaninos industriais e comerciais. Maximize seu espaço vertical com alta capacidade de carga e segurança.',
+    fullDescription: 'Os mezaninos metálicos ANFER são a solução ideal para empresas que precisam otimizar o aproveitamento do espaço vertical sem realizar grandes obras de alvenaria. Projetamos e fabricamos estruturas personalizadas em perfis de aço estrutural, calculadas por engenheiros para suportar cargas específicas de cada aplicação, desde armazenamento de materiais leves até equipamentos pesados. Cada projeto inclui cálculo estrutural detalhado, considerando capacidade de carga, vãos livres, acessos, escadas, guarda-corpos e integração com a estrutura existente. As vigas e colunas são fabricadas em aço de alta resistência com tratamento anticorrosivo e pintura industrial. O piso pode ser executado em chapa de aço xadrez antiderrapante, painéis de madeira industrializada ou grelhas metálicas conforme necessidade. A montagem é modular permitindo expansões futuras e eventual desmontagem se necessário. Ideais para indústrias, depósitos, lojas, escritórios e estabelecimentos comerciais que necessitam ampliar área útil. Incluímos escadas de acesso, guarda-corpos conforme normas de segurança e todos os elementos necessários para utilização segura.',
     images: ['/imgs/mezanino.png'],
     features: [
-      'Projeto personalizado',
-      'Alta capacidade de carga',
-      'Instalação rápida',
-      'Estrutura modular',
-      'Garantia total'
+      'Projeto estrutural personalizado por engenheiros',
+      'Alta capacidade de carga calculada',
+      'Estrutura modular expansível',
+      'Instalação rápida sem grandes obras',
+      'Inclui escadas e guarda-corpos',
+      'Garantia estrutural total'
     ],
     seoTitle: 'Mezanino Metálico - ANFER Esquadrias | São Paulo',
     seoDescription: 'Mezanino metálico sob medida para indústrias e comércios. Projeto, fabricação e instalação. Orçamento grátis!'
@@ -184,36 +190,19 @@ export const services: Service[] = [
     title: 'Grades para Janelas',
     slug: 'grades-para-janelas',
     category: 'Grades de Proteção',
-    description: 'Grades de proteção resistentes para janelas residenciais e comerciais.',
-    fullDescription: 'Grades de proteção fabricadas em ferro ou aço, com tratamento anticorrosivo e diversos modelos para proteção de janelas.',
+    description: 'Grades de proteção robustas para janelas, combinando segurança máxima com design elegante. Proteção para sua família sem comprometer a estética.',
+    fullDescription: 'As grades para janelas da ANFER são projetadas para oferecer proteção máxima sem comprometer a estética da sua fachada. Fabricadas em ferro maciço ou aço tubular de alta resistência, passam por tratamento anticorrosivo completo antes de receber pintura eletrostática em diversas cores. Oferecemos modelos variados, desde designs clássicos com barras verticais até modelos decorativos com elementos artísticos que agregam valor estético à propriedade. Todos os modelos são soldados com técnicas profissionais garantindo juntas resistentes e acabamento impecável. A instalação é realizada com fixações robustas direto na alvenaria, utilizando buchas e parafusos de alta resistência. Perfeitas para residências, apartamentos, lojas, escritórios e qualquer ambiente que necessite de proteção confiável. Podem ser instaladas por dentro ou por fora das janelas, conforme preferência e necessidade do cliente. Proteção comprovada contra invasões mantendo ventilação e iluminação natural.',
     images: ['/imgs/gradesJanela.png', '/imgs/gradesProtecao.png'],
     features: [
-      'Alta segurança',
-      'Diversos modelos',
-      'Instalação rápida',
-      'Pintura anticorrosiva',
-      'Garantia total'
+      'Ferro maciço ou aço tubular reforçado',
+      'Tratamento anticorrosivo completo',
+      'Pintura eletrostática em diversas cores',
+      'Modelos clássicos e decorativos',
+      'Instalação com fixação robusta',
+      'Garantia total de fabricação'
     ],
     seoTitle: 'Grades para Janelas - ANFER Esquadrias | São Paulo',
     seoDescription: 'Grades de proteção para janelas. Alta segurança e diversos modelos. Instalação profissional. Orçamento grátis!'
-  },
-  {
-    id: 'grades-decorativas',
-    title: 'Grades Decorativas',
-    slug: 'grades-decorativas',
-    category: 'Grades de Proteção',
-    description: 'Grades com design moderno que aliam segurança e estética.',
-    fullDescription: 'Grades decorativas personalizadas que combinam proteção com design elegante, valorizando sua fachada.',
-    images: ['/imgs/gradesProtecao.png'],
-    features: [
-      'Design personalizado',
-      'Diversos acabamentos',
-      'Elegância e segurança',
-      'Materiais de qualidade',
-      'Durabilidade'
-    ],
-    seoTitle: 'Grades Decorativas - ANFER Esquadrias | São Paulo',
-    seoDescription: 'Grades decorativas personalizadas. Segurança com design elegante. Orçamento gratuito em São Paulo!'
   },
   {
     id: 'grades-seguranca',
@@ -237,21 +226,21 @@ export const services: Service[] = [
   // Serviços Industriais
   {
     id: 'elevadores',
-    title: 'Elevadores',
-    slug: 'elevadores',
+    title: 'Elevadores Industriais',
+    slug: 'elevadores-industriais',
     category: 'Serviços Industriais',
-    description: 'Instalação e manutenção de elevadores residenciais e comerciais.',
-    fullDescription: 'Serviços completos de instalação, manutenção e modernização de elevadores residenciais, comerciais e industriais.',
+    description: 'Instalação e manutenção de elevadores industriais, de carga e para materiais.',
+    fullDescription: 'Serviços completos de instalação, manutenção e modernização de elevadores industriais, elevadores de carga e sistemas de transporte vertical para ambientes industriais e comerciais. Soluções robustas e eficientes para movimentação de materiais pesados.',
     images: ['/imgs/elevadorIndustrial.png'],
     features: [
-      'Elevadores residenciais',
-      'Elevadores comerciais',
+      'Elevadores de carga',
+      'Elevadores industriais',
       'Manutenção preventiva',
       'Modernização completa',
-      'Suporte técnico'
+      'Suporte técnico especializado'
     ],
-    seoTitle: 'Elevadores - Instalação e Manutenção | ANFER São Paulo',
-    seoDescription: 'Instalação e manutenção de elevadores. Atendimento residencial, comercial e industrial. Orçamento grátis!'
+    seoTitle: 'Elevadores Industriais - Instalação e Manutenção | ANFER São Paulo',
+    seoDescription: 'Instalação e manutenção de elevadores industriais e de carga. Atendimento especializado. Orçamento grátis!'
   },
   {
     id: 'portas-abs',

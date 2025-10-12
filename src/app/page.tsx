@@ -29,10 +29,10 @@ export default function HomePage() {
         '/imgs/portadeAco.png',
         '/imgs/portadeEnrolar.png'
       ],
-      href: '/servicos/todos'
+      href: '/servicos'
     },
     {
-      title: 'Corrimãos',
+      title: 'Corrimãos e Estruturas',
       description: 'Guarda-corpos, corrimãos e estruturas metálicas',
       images: [
         '/imgs/corrimao.png',
@@ -40,7 +40,7 @@ export default function HomePage() {
         '/imgs/guardaCorpoIndustrial.png',
         '/imgs/mezanino.png'
       ],
-      href: '/servicos/todos'
+      href: '/servicos'
     },
     {
       title: 'Grades',
@@ -49,7 +49,7 @@ export default function HomePage() {
         '/imgs/gradesJanela.png',
         '/imgs/gradesProtecao.png'
       ],
-      href: '/servicos/todos'
+      href: '/servicos'
     },
     {
       title: 'Outros Serviços',
@@ -60,7 +60,7 @@ export default function HomePage() {
         '/imgs/portasRapidasIndustriais.png',
         '/imgs/soldaEmGeral.png'
       ],
-      href: '/servicos/todos'
+      href: '/servicos'
     }
   ]
 
@@ -139,7 +139,7 @@ export default function HomePage() {
                     <div className="text-sm">Projetos Realizados</div>
                   </div>
                   <div className="bg-white/20 rounded-lg p-4 text-center">
-                    <div className="text-3xl font-bold">15+</div>
+                    <div className="text-3xl font-bold">30+</div>
                     <div className="text-sm">Anos de Experiência</div>
                   </div>
                   <div className="bg-white/20 rounded-lg p-4 text-center">
@@ -147,8 +147,8 @@ export default function HomePage() {
                     <div className="text-sm">Clientes Satisfeitos</div>
                   </div>
                   <div className="bg-white/20 rounded-lg p-4 text-center">
-                    <div className="text-3xl font-bold">10+</div>
-                    <div className="text-sm">Funcionários</div>
+                    <div className="text-3xl font-bold">Atendemos</div>
+                    <div className="text-sm">Toda a Grande São Paulo</div>
                   </div>
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function HomePage() {
       {/* Features Section */}
       <section className="py-20 relative overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-600 via-gray-700 to-gray-60 opacity-50"></div>
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}></div>

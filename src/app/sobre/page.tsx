@@ -1,3 +1,8 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { 
   Award, 
   Users, 
@@ -8,10 +13,36 @@ import {
   CheckCircle,
   Building,
   Wrench,
-  Phone
+  Phone,
+  Play
 } from 'lucide-react'
 
+interface AboutData {
+  videoUrl: string | null
+}
+
 export default function SobrePage() {
+  const [aboutData, setAboutData] = useState<AboutData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadAboutData()
+  }, [])
+
+  const loadAboutData = async () => {
+    try {
+      const res = await fetch('/api/about')
+      if (res.ok) {
+        const data = await res.json()
+        setAboutData(data)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar dados:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const values = [
     {
       icon: Shield,
@@ -26,7 +57,7 @@ export default function SobrePage() {
     {
       icon: Award,
       title: 'Experiência',
-      description: 'Mais de 15 anos de experiência no mercado, com centenas de projetos realizados com sucesso.'
+      description: 'Mais de 30 anos de experiência no mercado, com centenas de projetos realizados com sucesso.'
     },
     {
       icon: Target,
@@ -35,33 +66,6 @@ export default function SobrePage() {
     }
   ]
 
-  const timeline = [
-    {
-      year: '2008',
-      title: 'Fundação da ANFER',
-      description: 'Início das atividades com foco em esquadrias metálicas e portões residenciais.'
-    },
-    {
-      year: '2012',
-      title: 'Expansão dos Serviços',
-      description: 'Ampliação do portfólio para incluir guarda-corpos, corrimãos e grades de proteção.'
-    },
-    {
-      year: '2015',
-      title: 'Atendimento Industrial',
-      description: 'Início do atendimento a indústrias e condomínios com serviços especializados.'
-    },
-    {
-      year: '2020',
-      title: 'Móveis Industriais',
-      description: 'Lançamento da linha de móveis industriais personalizados sob medida.'
-    },
-    {
-      year: '2023',
-      title: 'Crescimento Contínuo',
-      description: 'Consolidação como referência em esquadrias metálicas na Grande São Paulo.'
-    }
-  ]
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -73,7 +77,7 @@ export default function SobrePage() {
               Sobre a ANFER
             </h1>
             <p className="text-xl text-gray-200 mb-8">
-              Mais de 15 anos de experiência em esquadrias metálicas, 
+              Mais de 30 anos de experiência em esquadrias metálicas, 
               oferecendo soluções completas para residências, condomínios e indústrias.
             </p>
           </div>
@@ -83,13 +87,13 @@ export default function SobrePage() {
       {/* Company Story */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
                 Nossa História
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                A ANFER Esquadrias Metálicas foi fundada em 2008 com o objetivo de oferecer 
+                A ANFER Esquadrias Metálicas foi fundada com o objetivo de oferecer 
                 soluções em esquadrias metálicas de alta qualidade para o mercado residencial 
                 e industrial.
               </p>
@@ -103,43 +107,86 @@ export default function SobrePage() {
                 combinando nossa experiência em metalurgia com design funcional e moderno.
               </p>
             </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                <Building className="h-24 w-24 text-gray-400" />
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-md">
+                <Image
+                  src="/imgs/aboutImage.png"
+                  alt="ANFER Esquadrias"
+                  width={400}
+                  height={600}
+                  className="w-full h-auto object-contain"
+                  priority
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Vídeo Institucional - Aparece quando houver vídeo */}
+      {aboutData?.videoUrl && (
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Conheça Nossa Empresa
+              </h2>
+              <p className="text-xl text-gray-600">
+                Veja mais sobre nosso trabalho e compromisso com a qualidade
+              </p>
+            </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-2xl">
+                {aboutData.videoUrl.includes('youtube.com') || aboutData.videoUrl.includes('youtu.be') ? (
+                  <iframe
+                    src={aboutData.videoUrl.replace('watch?v=', 'embed/')}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <video
+                    src={aboutData.videoUrl}
+                    controls
+                    className="w-full h-full object-cover"
+                  >
+                    Seu navegador não suporta vídeos.
+                  </video>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Stats Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-zinc-800 via-zinc-800 to-zinc-900 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Números que Comprovam Nossa Excelência
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Resultados que demonstram nosso compromisso com a qualidade e satisfação do cliente
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-600 mb-2">500+</div>
-              <div className="text-gray-600">Projetos Realizados</div>
+              <div className="text-4xl font-bold text-red-400 mb-2">500+</div>
+              <div className="text-gray-300">Projetos Realizados</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-600 mb-2">15+</div>
-              <div className="text-gray-600">Anos de Experiência</div>
+              <div className="text-4xl font-bold text-red-400 mb-2">30+</div>
+              <div className="text-gray-300">Anos de Experiência</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-600 mb-2">100%</div>
-              <div className="text-gray-600">Satisfação do Cliente</div>
+              <div className="text-4xl font-bold text-red-400 mb-2">100%</div>
+              <div className="text-gray-300">Satisfação do Cliente</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-600 mb-2">24h</div>
-              <div className="text-gray-600">Suporte Técnico</div>
+              <div className="text-4xl font-bold text-red-400 mb-2">24/7 </div>
+              <div className="text-gray-300">Suporte Técnico</div>
             </div>
           </div>
         </div>
@@ -175,39 +222,6 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Nossa Trajetória
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Marcos importantes da nossa história e crescimento
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
-              {timeline.map((item, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="bg-red-600 text-white w-20 h-20 rounded-full flex items-center justify-center mr-8 flex-shrink-0">
-                    <span className="font-bold">{item.year}</span>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-6 flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Team Section */}
       <section className="py-20 bg-gray-50">
@@ -262,7 +276,7 @@ export default function SobrePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-red-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-red-800 via-red-900 to-red-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
             Conheça Nossos Serviços
@@ -271,24 +285,22 @@ export default function SobrePage() {
             Entre em contato conosco e descubra como podemos ajudar em seu próximo projeto.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <Link 
               href="/contato"
               className="bg-white text-red-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
             >
               <Phone className="mr-2 h-5 w-5" />
               Fale Conosco
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/servicos"
               className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
             >
               Ver Serviços
-            </a>
+            </Link>
           </div>
         </div>
       </section>
     </div>
   )
 }
-
-

@@ -10,7 +10,7 @@ export default function Header() {
 
   const navigation = [
     { name: 'Início', href: '/' },
-    { name: 'Serviços', href: '/servicos/todos' },
+    { name: 'Serviços', href: '/servicos' },
     { name: 'Móveis Industriais', href: '/moveis-industriais' },
     { name: 'Sobre Nós', href: '/sobre' },
     { name: 'Contato', href: '/contato' },
@@ -46,13 +46,13 @@ export default function Header() {
             <Image 
               src="/LogoAnfer.png" 
               alt="ANFER Logo" 
-              width={50} 
-              height={50}
+              width={80} 
+              height={80}
               className="object-contain"
             />
             <div>
-              <span className="font-bold text-xl text-gray-900 block">ANFER</span>
-              <span className="text-sm text-gray-600 hidden sm:block">Esquadrias Metálicas</span>
+              <span className="font-bold text-2xl text-gray-900 block">ANFER</span>
+              <span className="text-xl text-gray-600  sm:block">Esquadrias Metálicas</span>
             </div>
           </Link>
 
@@ -74,7 +74,7 @@ export default function Header() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden p-2"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-6 w-6 text-red-600" /> : <Menu className="h-6 w-6 text-red-600" />}
           </button>
         </div>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import PhoneInput from '@/components/PhoneInput'
 import { 
   Phone, 
   Mail, 
@@ -11,7 +12,8 @@ import {
   User,
   CheckCircle,
   Facebook,
-  Instagram
+  Instagram,
+  Loader2
 } from 'lucide-react'
 
 export default function ContatoPage() {
@@ -24,12 +26,44 @@ export default function ContatoPage() {
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aqui você pode adicionar a lógica para enviar os dados
-    console.log('Form submitted:', formData)
-    setIsSubmitted(true)
+    setIsSubmitting(true)
+    setError('')
+    
+    try {
+      const response = await fetch('/api/send-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          ...formData, 
+          type: 'contato'
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        
+        // Abrir WhatsApp automaticamente
+        if (data.whatsappLink) {
+          setTimeout(() => {
+            window.open(data.whatsappLink, '_blank')
+          }, 1500)
+        }
+      } else {
+        setError(data.error || 'Erro ao enviar mensagem. Tente novamente.')
+      }
+    } catch (error) {
+      console.error('Erro ao enviar:', error)
+      setError('Erro ao enviar mensagem. Por favor, tente novamente ou entre em contato diretamente pelo WhatsApp.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -49,14 +83,14 @@ export default function ContatoPage() {
     {
       icon: Mail,
       title: 'E-mail',
-      details: 'contato@anferesquadrias.com',
+      details: 'oficial.anferesquadrias@gmail.com',
       description: 'Respondemos em até 24 horas'
     },
     {
       icon: MapPin,
       title: 'Endereço',
-      details: 'São Paulo - SP',
-      description: 'Atendemos toda a Grande São Paulo'
+      details: 'Rua Arlindo Pascoal, 120',
+      description: 'São Miguel Pta - SP'
     },
     {
       icon: Clock,
@@ -68,16 +102,32 @@ export default function ContatoPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-xl p-8 shadow-lg max-w-md w-full mx-4 text-center">
-          <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Mensagem Enviada!
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Sua mensagem foi enviada com sucesso. 
-            Nossa equipe entrará em contato em breve.
-          </p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl p-8 shadow-lg max-w-md w-full text-center">
+          <div className="mb-6">
+            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="h-12 w-12 text-green-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              Mensagem Enviada!
+            </h2>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              Sua mensagem foi enviada com sucesso por e-mail. 
+              <br />
+              <strong>Você será redirecionado para o WhatsApp</strong> para agilizar o atendimento.
+            </p>
+          </div>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-sm text-gray-800">
+              📧 <strong>E-mail enviado</strong> para: oficial.anferesquadrias@gmail.com
+              <br />
+              💬 <strong>WhatsApp</strong> abrindo automaticamente...
+              <br />
+              ⏱️ Nossa equipe retorna em até <strong>24 horas</strong>
+            </p>
+          </div>
+
           <button 
             onClick={() => {
               setIsSubmitted(false)
@@ -89,7 +139,7 @@ export default function ContatoPage() {
                 message: ''
               })
             }}
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md"
           >
             Nova Mensagem
           </button>
@@ -158,39 +208,44 @@ export default function ContatoPage() {
                 Envie sua Mensagem
               </h2>
               
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                  {error}
+                </div>
+              )}
+              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">
                       Nome Completo *
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                         placeholder="Seu nome completo"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">
                       Telefone *
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <input
-                        type="tel"
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                      <PhoneInput
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                         placeholder="(11) 94009-3757"
                       />
                     </div>
@@ -198,25 +253,25 @@ export default function ContatoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
                     E-mail *
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                       placeholder="seu@email.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
                     Assunto *
                   </label>
                   <select
@@ -224,7 +279,7 @@ export default function ContatoPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                   >
                     <option value="">Selecione o assunto</option>
                     <option value="orcamento">Solicitar Orçamento</option>
@@ -235,18 +290,18 @@ export default function ContatoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
                     Mensagem *
                   </label>
                   <div className="relative">
-                    <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 resize-none text-gray-900 font-medium"
                       placeholder="Descreva sua necessidade ou dúvida..."
                     />
                   </div>
@@ -254,30 +309,60 @@ export default function ContatoPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
+                  disabled={isSubmitting}
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center shadow-md"
                 >
-                  <Send className="mr-2 h-5 w-5" />
-                  Enviar Mensagem
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-5 w-5" />
+                      Enviar Mensagem
+                    </>
+                  )}
                 </button>
               </form>
             </div>
 
             {/* Map and Additional Info */}
             <div className="space-y-8">
-              {/* Map Placeholder */}
+              {/* Google Map */}
               <div className="bg-white rounded-xl p-8 shadow-lg">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   Nossa Localização
                 </h3>
-                <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center mb-6">
-                  <MapPin className="h-16 w-16 text-gray-400" />
+                <div className="rounded-lg overflow-hidden mb-6">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.3841571524896!2d-46.45924890000001!3d-23.486496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce619fd7eb0a1b%3A0x45896f9e7c2ab587!2sR.%20Arlindo%20Pascoal%2C%2022%20-%20Vila%20Nova%20Uniao%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008072-090!5e0!3m2!1spt-BR!2sbr!4v1707000000000!5m2!1spt-BR!2sbr"
+                    width="100%" 
+                    height="300" 
+                    style={{ border: 0 }} 
+                    allowFullScreen
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-lg"
+                  />
                 </div>
-                <p className="text-gray-600 mb-4">
-                  Atendemos toda a Grande São Paulo e região metropolitana.
-                </p>
-                <p className="text-gray-600">
-                  Para projetos em outras regiões, entre em contato para verificar a disponibilidade.
-                </p>
+                <div className="space-y-3">
+                  <div className="flex items-start">
+                    <MapPin className="h-5 w-5 text-red-600 mr-3 mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="text-gray-900 font-semibold">Rua Arlindo Pascoal, 120</p>
+                      <p className="text-gray-700">São Miguel Pta - SP</p>
+                    </div>
+                  </div>
+                  <a 
+                    href="https://www.google.com/maps/place/R.+Arl%C3%ADndo+Pascoal,+22+-+Vila+Nova+Uniao,+S%C3%A3o+Paulo+-+SP,+08072-090/@-23.486496,-46.4592489,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce619fd7eb0a1b:0x45896f9e7c2ab587!8m2!3d-23.4865009!4d-46.456674!16s%2Fg%2F11c4gwtv57?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold"
+                  >
+                    Ver no Google Maps
+                  </a>
+                </div>
               </div>
 
               {/* Social Media */}
@@ -287,40 +372,52 @@ export default function ContatoPage() {
                 </h3>
                 <div className="flex space-x-4">
                   <a 
-                    href="#" 
-                    className="bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 transition-colors"
+                    href="https://www.facebook.com/Anfer.Esquadrias/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    title="Facebook ANFER"
                   >
                     <Facebook className="h-6 w-6" />
                   </a>
                   <a 
-                    href="#" 
-                    className="bg-pink-600 text-white p-3 rounded-lg hover:bg-pink-700 transition-colors"
+                    href="https://www.instagram.com/anfer.esquadrias/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-3 rounded-lg hover:opacity-90 transition-opacity"
+                    title="Instagram ANFER"
                   >
                     <Instagram className="h-6 w-6" />
                   </a>
                 </div>
-                <p className="text-gray-600 mt-4">
+                <p className="text-gray-700 mt-4 font-medium">
                   Acompanhe nossos projetos e novidades em tempo real.
                 </p>
               </div>
 
               {/* Quick Contact */}
-              <div className="bg-red-50 rounded-xl p-8">
+              <div className="bg-red-50 rounded-xl p-8 border-2 border-red-200">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   Contato Rápido
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center">
-                    <Phone className="h-5 w-5 text-red-600 mr-3" />
-                    <span className="text-gray-700">(11) 94009-3757</span>
+                    <Phone className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
+                    <a href="https://wa.me/5511940093757" target="_blank" rel="noopener noreferrer" className="text-gray-900 font-semibold hover:text-red-600">
+                      (11) 94009-3757
+                    </a>
                   </div>
                   <div className="flex items-center">
-                    <Mail className="h-5 w-5 text-red-600 mr-3" />
-                    <span className="text-gray-700">contato@anferesquadrias.com</span>
+                    <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
+                    <a href="mailto:oficial.anferesquadrias@gmail.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
+                      oficial.anferesquadrias@gmail.com
+                    </a>
                   </div>
                 </div>
-                <p className="text-gray-600 mt-4">
+                <p className="text-gray-800 text-sm mt-4 font-medium">
                   Para emergências ou atendimento imediato, ligue diretamente.
+                  <br />
+                  Horário: Segunda a Sexta, 8h às 18h
                 </p>
               </div>
             </div>
@@ -330,5 +427,8 @@ export default function ContatoPage() {
     </div>
   )
 }
+
+
+
 
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import PhoneInput from '@/components/PhoneInput'
 import { 
   Wrench, 
   Phone, 
@@ -11,7 +12,8 @@ import {
   Calendar,
   MapPin,
   User,
-  MessageSquare
+  MessageSquare,
+  Loader2
 } from 'lucide-react'
 
 export default function ManutencaoPage() {
@@ -27,11 +29,13 @@ export default function ManutencaoPage() {
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const maintenanceServices = [
     'Portões e Portas',
     'Guarda-Corpos',
-    'Elevadores',
+    'Elevadores Industriais',
     'Móveis Industriais',
     'Soldas em Geral',
     'Placas Eletrônicas',
@@ -39,11 +43,43 @@ export default function ManutencaoPage() {
     'Outros'
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aqui você pode adicionar a lógica para enviar os dados
-    console.log('Form submitted:', formData)
-    setIsSubmitted(true)
+    setIsSubmitting(true)
+    setError('')
+    
+    try {
+      const response = await fetch('/api/send-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          ...formData, 
+          type: 'manutencao',
+          subject: `Manutenção - ${formData.service}`,
+          message: formData.description
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        
+        // Abrir WhatsApp automaticamente
+        if (data.whatsappLink) {
+          setTimeout(() => {
+            window.open(data.whatsappLink, '_blank')
+          }, 1500)
+        }
+      } else {
+        setError(data.error || 'Erro ao enviar solicitação. Tente novamente.')
+      }
+    } catch (error) {
+      console.error('Erro ao enviar:', error)
+      setError('Erro ao enviar solicitação. Por favor, tente novamente ou entre em contato diretamente pelo WhatsApp.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -55,16 +91,32 @@ export default function ManutencaoPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-xl p-8 shadow-lg max-w-md w-full mx-4 text-center">
-          <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Solicitação Enviada!
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Sua solicitação de manutenção foi enviada com sucesso. 
-            Nossa equipe entrará em contato em até 24 horas.
-          </p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl p-8 shadow-lg max-w-md w-full text-center">
+          <div className="mb-6">
+            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="h-12 w-12 text-green-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              Solicitação Enviada!
+            </h2>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              Sua solicitação de manutenção foi enviada com sucesso por e-mail. 
+              <br />
+              <strong>Você será redirecionado para o WhatsApp</strong> para agilizar o atendimento.
+            </p>
+          </div>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-sm text-gray-800">
+              📧 <strong>E-mail enviado</strong> para: oficial.anferesquadrias@gmail.com
+              <br />
+              💬 <strong>WhatsApp</strong> abrindo automaticamente...
+              <br />
+              ⏱️ Nossa equipe retorna em até <strong>24 horas</strong>
+            </p>
+          </div>
+
           <button 
             onClick={() => {
               setIsSubmitted(false)
@@ -79,7 +131,7 @@ export default function ManutencaoPage() {
                 urgency: 'normal'
               })
             }}
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md"
           >
             Nova Solicitação
           </button>
@@ -97,19 +149,19 @@ export default function ManutencaoPage() {
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
               Agendar Manutenção
             </h1>
-            <p className="text-xl text-gray-200 mb-8">
+            <p className="text-xl text-gray-100 mb-8">
               Solicite uma manutenção preventiva ou corretiva para seus equipamentos. 
-              Nossa equipe técnica está pronta para atender você.
+              Nossa equipe técnica está pronta para atender você com rapidez e qualidade.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div className="flex items-center justify-center">
+              <a href="https://wa.me/5511940093757" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
                 <Phone className="mr-2 h-5 w-5" />
-                <span>(11) 94009-3757</span>
-              </div>
-              <div className="flex items-center justify-center">
+                <span className="font-semibold">(11) 94009-3757</span>
+              </a>
+              <a href="mailto:oficial.anferesquadrias@gmail.com" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
                 <Mail className="mr-2 h-5 w-5" />
-                <span>contato@anferesquadrias.com</span>
-              </div>
+                <span className="font-semibold">oficial.anferesquadrias@gmail.com</span>
+              </a>
             </div>
           </div>
         </div>
@@ -127,39 +179,44 @@ export default function ManutencaoPage() {
                     Solicitar Manutenção
                   </h2>
                   
+                  {error && (
+                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                      {error}
+                    </div>
+                  )}
+                  
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Nome Completo *
                         </label>
                         <div className="relative">
-                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                           <input
                             type="text"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                             placeholder="Seu nome completo"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Telefone *
                         </label>
                         <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                          <input
-                            type="tel"
+                          <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                          <PhoneInput
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
                             required
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                             placeholder="(11) 94009-3757"
                           />
                         </div>
@@ -167,18 +224,18 @@ export default function ManutencaoPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
                         E-mail *
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                         <input
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                           placeholder="seu@email.com"
                         />
                       </div>
@@ -186,7 +243,7 @@ export default function ManutencaoPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Tipo de Serviço *
                         </label>
                         <select
@@ -194,7 +251,7 @@ export default function ManutencaoPage() {
                           value={formData.service}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                         >
                           <option value="">Selecione o serviço</option>
                           {maintenanceServices.map((service) => (
@@ -206,69 +263,70 @@ export default function ManutencaoPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Urgência
                         </label>
                         <select
                           name="urgency"
                           value={formData.urgency}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                         >
-                          <option value="low">Baixa</option>
-                          <option value="normal">Normal</option>
-                          <option value="high">Alta</option>
-                          <option value="urgent">Urgente</option>
+                          <option value="low">🔵 Baixa</option>
+                          <option value="normal">🟢 Normal</option>
+                          <option value="high">🟠 Alta</option>
+                          <option value="urgent">🔴 Urgente</option>
                         </select>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
                         Endereço para Atendimento
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                        <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                         <input
                           type="text"
                           name="address"
                           value={formData.address}
                           onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                           placeholder="Endereço completo"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
                         Data Preferencial
                       </label>
                       <div className="relative">
-                        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                         <input
                           type="date"
                           name="preferredDate"
                           value={formData.preferredDate}
                           onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          min={new Date().toISOString().split('T')[0]}
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 font-medium"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
                         Descrição do Problema *
                       </label>
                       <div className="relative">
-                        <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                        <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                         <textarea
                           name="description"
                           value={formData.description}
                           onChange={handleChange}
                           required
                           rows={4}
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 resize-none text-gray-900 font-medium"
                           placeholder="Descreva o problema ou serviço necessário..."
                         />
                       </div>
@@ -276,10 +334,20 @@ export default function ManutencaoPage() {
 
                     <button
                       type="submit"
-                      className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center"
+                      disabled={isSubmitting}
+                      className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center shadow-md"
                     >
-                      <Wrench className="mr-2 h-5 w-5" />
-                      Solicitar Manutenção
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Wrench className="mr-2 h-5 w-5" />
+                          Solicitar Manutenção
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -295,8 +363,8 @@ export default function ManutencaoPage() {
                     <div className="flex items-start">
                       <Clock className="h-5 w-5 text-red-600 mr-3 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-medium text-gray-900">Tempo de Resposta</p>
-                        <p className="text-gray-600 text-sm">
+                        <p className="font-semibold text-gray-900">Tempo de Resposta</p>
+                        <p className="text-gray-700 text-sm">
                           Retornamos em até 24 horas úteis
                         </p>
                       </div>
@@ -305,8 +373,8 @@ export default function ManutencaoPage() {
                     <div className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-600 mr-3 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-medium text-gray-900">Orçamento Gratuito</p>
-                        <p className="text-gray-600 text-sm">
+                        <p className="font-semibold text-gray-900">Orçamento Gratuito</p>
+                        <p className="text-gray-700 text-sm">
                           Sem compromisso e sem custos
                         </p>
                       </div>
@@ -315,8 +383,8 @@ export default function ManutencaoPage() {
                     <div className="flex items-start">
                       <AlertCircle className="h-5 w-5 text-orange-600 mr-3 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-medium text-gray-900">Emergências</p>
-                        <p className="text-gray-600 text-sm">
+                        <p className="font-semibold text-gray-900">Emergências</p>
+                        <p className="text-gray-700 text-sm">
                           Para emergências, ligue diretamente
                         </p>
                       </div>
@@ -324,22 +392,35 @@ export default function ManutencaoPage() {
                   </div>
                 </div>
 
-                <div className="bg-red-50 rounded-xl p-6">
+                <div className="bg-red-50 rounded-xl p-6 border-2 border-red-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     Contato Direto
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center">
-                      <Phone className="h-5 w-5 text-red-600 mr-3" />
-                      <span className="text-gray-700">(11) 94009-3757</span>
+                      <Phone className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
+                      <a href="https://wa.me/5511940093757" target="_blank" rel="noopener noreferrer" className="text-gray-900 font-semibold hover:text-red-600">
+                        (11) 94009-3757
+                      </a>
                     </div>
                     <div className="flex items-center">
-                      <Mail className="h-5 w-5 text-red-600 mr-3" />
-                      <span className="text-gray-700">contato@anferesquadrias.com</span>
+                      <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
+                      <a href="mailto:oficial.anferesquadrias@gmail.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
+                        oficial.anferesquadrias@gmail.com
+                      </a>
                     </div>
                   </div>
-                  <p className="text-gray-600 text-sm mt-4">
+                  <p className="text-gray-800 text-sm mt-4 font-medium">
                     Horário de atendimento: Segunda a Sexta, 8h às 18h
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-200">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">
+                    💡 Dica
+                  </h3>
+                  <p className="text-gray-800 text-sm font-medium">
+                    Quanto mais detalhes você fornecer sobre o problema, mais rápido e preciso será nosso atendimento!
                   </p>
                 </div>
               </div>
@@ -350,5 +431,3 @@ export default function ManutencaoPage() {
     </div>
   )
 }
-
-
