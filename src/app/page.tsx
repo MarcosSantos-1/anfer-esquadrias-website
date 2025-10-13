@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import ImageCarousel from '@/components/ImageCarousel'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
+import PublicLayout from '@/components/PublicLayout'
 import { services as allServices } from '@/data/services'
 
 export default function HomePage() {
@@ -88,6 +89,7 @@ export default function HomePage() {
   ]
 
   return (
+    <PublicLayout>
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative text-white py-32 md:py-40 overflow-hidden min-h-[600px] md:min-h-[700px]">
@@ -300,5 +302,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </PublicLayout>
   )
 }
