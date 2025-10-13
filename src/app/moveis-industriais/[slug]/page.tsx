@@ -3,27 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MessageCircle, Mail, ArrowLeft, CheckCircle, Ruler, DollarSign, Palette, Package, Settings } from 'lucide-react'
 import ImageCarousel from '@/components/ImageCarousel'
-
-interface FurnitureProduct {
-  id: string
-  name: string
-  slug: string
-  category: string
-  shortDescription: string
-  fullDescription: string
-  standardWidth: number
-  standardHeight: number
-  standardDepth: number
-  sizeUnit: string
-  basePrice: number
-  images: string[]
-  features: string[]
-  materials: string[]
-  colors: string[]
-  customizable: boolean
-  seoTitle: string
-  seoDescription: string
-}
+import { furnitureProducts, FurnitureProduct } from '@/data/furniture'
 
 interface ProductPageProps {
   params: Promise<{
@@ -32,40 +12,16 @@ interface ProductPageProps {
 }
 
 async function getProduct(slug: string): Promise<FurnitureProduct | null> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/furniture`, {
-      cache: 'no-store'
-    })
-    
-    if (!res.ok) return null
-    
-    const products = await res.json()
-    return products.find((p: FurnitureProduct) => p.slug === slug) || null
-  } catch (error) {
-    console.error('Erro ao buscar produto:', error)
-    return null
-  }
+  const product = furnitureProducts.find((p) => p.slug === slug)
+  return product || null
 }
 
 async function getAllProducts(): Promise<FurnitureProduct[]> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/furniture`, {
-      cache: 'no-store'
-    })
-    
-    if (!res.ok) return []
-    return res.json()
-  } catch (error) {
-    console.error('Erro ao buscar produtos:', error)
-    return []
-  }
+  return furnitureProducts
 }
 
 export async function generateStaticParams() {
-  const products = await getAllProducts()
-  return products.map((product) => ({
+  return furnitureProducts.map((product) => ({
     slug: product.slug,
   }))
 }
