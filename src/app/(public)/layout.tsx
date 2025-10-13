@@ -19,9 +19,9 @@ export default function PublicLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               "name": "ANFER Esquadrias Metálicas",
-              "image": "https://anfer-esquadrias.vercel.app/AnferLogo.svg",
-              "@id": "https://anfer-esquadrias.vercel.app",
-              "url": "https://anfer-esquadrias.vercel.app",
+              "image": "https://www.anferesquadrias.com.br/AnferLogo.svg",
+              "@id": "https://www.anferesquadrias.com.br",
+              "url": "https://www.anferesquadrias.com.br",
               "telephone": "+5511940093757",
               "priceRange": "$$",
               "address": {

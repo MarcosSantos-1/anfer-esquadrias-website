@@ -3,7 +3,7 @@ import { services } from '@/data/services'
 import { furnitureProducts } from '@/data/furniture'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://anfer-esquadrias.vercel.app'
+  const baseUrl = 'https://www.anferesquadrias.com.br'
   
   // Páginas estáticas
   const routes = [
