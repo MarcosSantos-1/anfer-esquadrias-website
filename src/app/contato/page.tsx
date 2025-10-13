@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import PhoneInput from '@/components/PhoneInput'
-import PublicLayout from '@/components/PublicLayout'
 import { 
   Phone, 
   Mail, 
@@ -103,7 +102,6 @@ export default function ContatoPage() {
 
   if (isSubmitted) {
     return (
-      <PublicLayout>
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="bg-white rounded-xl p-8 shadow-lg max-w-md w-full text-center">
           <div className="mb-6">
@@ -147,12 +145,10 @@ export default function ContatoPage() {
           </button>
         </div>
       </div>
-      </PublicLayout>
     )
   }
 
   return (
-    <PublicLayout>
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
       <section className="bg-gradient-to-r from-red-900 to-red-700 text-white py-20">
@@ -429,7 +425,6 @@ export default function ContatoPage() {
         </div>
       </section>
     </div>
-    </PublicLayout>
   )
 }
 
