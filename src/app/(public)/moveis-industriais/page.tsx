@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   Wrench, 
   Building, 
@@ -24,10 +25,12 @@ interface FurnitureProduct {
   slug: string
   category: string
   shortDescription: string
-  standardWidth: number
-  standardHeight: number
-  standardDepth: number
-  sizeUnit: string
+  standardSize: {
+    width: number
+    height: number
+    depth: number
+    unit: string
+  }
   basePrice: number
   images: string[]
   features: string[]
@@ -170,11 +173,13 @@ export default function MoveisIndustriaisPage() {
               </div>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="aspect-video rounded-lg overflow-hidden">
-                <img 
+              <div className="relative aspect-video rounded-lg overflow-hidden">
+                <Image 
                   src="/imgs/furnitureImage.png" 
                   alt="Móveis Industriais ANFER"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </div>
             </div>
@@ -289,7 +294,7 @@ export default function MoveisIndustriaisPage() {
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Ruler className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
-                        <span>{product.standardWidth}x{product.standardHeight}x{product.standardDepth} {product.sizeUnit}</span>
+                        <span>{product.standardSize.width}x{product.standardSize.height}x{product.standardSize.depth} {product.standardSize.unit}</span>
                       </div>
                     </div>
 

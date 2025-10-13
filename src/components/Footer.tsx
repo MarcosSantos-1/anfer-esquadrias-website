@@ -27,11 +27,23 @@ export default function Footer() {
               Atendemos residências, condomínios e indústrias com qualidade e excelência.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/Anfer.Esquadrias/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="h-5 w-5" />
+              <a 
+                href="https://www.facebook.com/Anfer.Esquadrias/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-800 rounded-lg"
+                aria-label="Visite nossa página no Facebook"
+              >
+                <Facebook className="h-6 w-6" />
               </a>
-              <a href="https://www.instagram.com/anfer.esquadrias/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="h-5 w-5" />
+              <a 
+                href="https://www.instagram.com/anfer.esquadrias/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-800 rounded-lg"
+                aria-label="Visite nosso perfil no Instagram"
+              >
+                <Instagram className="h-6 w-6" />
               </a>
             </div>
           </div>

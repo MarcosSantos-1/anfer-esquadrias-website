@@ -147,7 +147,7 @@ export default function HomePage() {
                     <div className="text-sm">Clientes Satisfeitos</div>
                   </div>
                   <div className="bg-white/20 rounded-lg p-4 text-center">
-                    <div className="text-3xl font-bold">Atendemos</div>
+                    <div className="text-xl sm:text-3xl font-bold">Atendemos</div>
                     <div className="text-sm">Toda a Grande São Paulo</div>
                   </div>
                 </div>
