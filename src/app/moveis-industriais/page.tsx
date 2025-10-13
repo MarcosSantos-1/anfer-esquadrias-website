@@ -32,6 +32,7 @@ interface FurnitureProduct {
   images: string[]
   features: string[]
   customizable: boolean
+  isActive?: boolean
 }
 
 export default function MoveisIndustriaisPage() {
