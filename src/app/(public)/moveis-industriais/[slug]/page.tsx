@@ -12,15 +12,48 @@ interface ProductPageProps {
 }
 
 async function getProduct(slug: string): Promise<FurnitureProduct | null> {
+  try {
+    // Tentar buscar do banco primeiro (runtime)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/furniture`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    })
+    
+    if (res.ok) {
+      const products = await res.json()
+      const product = products.find((p: FurnitureProduct) => p.slug === slug)
+      if (product) return product
+    }
+  } catch (error) {
+    console.log('Fallback para dados estáticos')
+  }
+  
+  // Fallback para dados estáticos
   const product = furnitureProducts.find((p) => p.slug === slug)
   return product || null
 }
 
 async function getAllProducts(): Promise<FurnitureProduct[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/furniture`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    })
+    
+    if (res.ok) {
+      return res.json()
+    }
+  } catch (error) {
+    console.log('Fallback para dados estáticos')
+  }
+  
   return furnitureProducts
 }
 
 export async function generateStaticParams() {
+  // Para build, usar dados estáticos
   return furnitureProducts.map((product) => ({
     slug: product.slug,
   }))

@@ -12,16 +12,48 @@ interface ServicePageProps {
 }
 
 async function getService(slug: string): Promise<Service | null> {
-  // Usar dados estáticos durante build
+  try {
+    // Tentar buscar do banco primeiro (runtime)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/services`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    })
+    
+    if (res.ok) {
+      const services = await res.json()
+      const service = services.find((s: Service) => s.slug === slug)
+      if (service) return service
+    }
+  } catch (error) {
+    console.log('Fallback para dados estáticos')
+  }
+  
+  // Fallback para dados estáticos
   const service = staticServices.find((s) => s.slug === slug)
   return service || null
 }
 
 async function getAllServices(): Promise<Service[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/services`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    })
+    
+    if (res.ok) {
+      return res.json()
+    }
+  } catch (error) {
+    console.log('Fallback para dados estáticos')
+  }
+  
   return staticServices
 }
 
 export async function generateStaticParams() {
+  // Para build, usar dados estáticos
   return staticServices.map((service) => ({
     slug: service.slug,
   }))
@@ -118,9 +150,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <div className="lg:col-span-2">
               {/* Image Carousel ou Imagem Única */}
               <div className="mb-8">
-                {service.images.length > 1 ? (
+                {Array.isArray(service.images) && service.images.length > 1 ? (
                   <ImageCarousel images={service.images} alt={service.title} />
-                ) : service.images.length === 1 ? (
+                ) : Array.isArray(service.images) && service.images.length === 1 ? (
                   <div className="rounded-xl overflow-hidden">
                     <img 
                       src={service.images[0]} 
