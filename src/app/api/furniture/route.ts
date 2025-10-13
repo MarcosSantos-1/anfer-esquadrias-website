@@ -8,13 +8,29 @@ export async function GET() {
       orderBy: { order: 'asc' }
     })
     
-    // Parse JSON fields
+    // Parse JSON fields e transformar para formato correto
     const productsWithParsedData = products.map(product => ({
-      ...product,
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      category: product.category,
+      shortDescription: product.shortDescription,
+      fullDescription: product.fullDescription,
+      standardSize: {
+        width: product.standardWidth,
+        height: product.standardHeight,
+        depth: product.standardDepth,
+        unit: product.sizeUnit
+      },
+      basePrice: product.basePrice,
       images: JSON.parse(product.images),
       features: JSON.parse(product.features),
       materials: JSON.parse(product.materials),
-      colors: JSON.parse(product.colors)
+      colors: JSON.parse(product.colors),
+      customizable: product.customizable,
+      isActive: product.isActive,
+      seoTitle: product.seoTitle,
+      seoDescription: product.seoDescription
     }))
     
     return NextResponse.json(productsWithParsedData)
