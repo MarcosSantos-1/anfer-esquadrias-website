@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile } from 'fs/promises'
-import path from 'path'
+import { v2 as cloudinary } from 'cloudinary'
+
+// Configurar Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,24 +20,20 @@ export async function POST(request: NextRequest) {
       )
     }
     
+    // Converter file para base64
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
+    const base64 = buffer.toString('base64')
+    const dataURI = `data:${file.type};base64,${base64}`
     
-    // Gerar nome único para o arquivo
-    const timestamp = Date.now()
-    const originalName = file.name.replace(/\s+/g, '-')
-    const filename = `${timestamp}-${originalName}`
+    // Upload para Cloudinary
+    const result = await cloudinary.uploader.upload(dataURI, {
+      folder: 'anfer-esquadrias',
+      resource_type: 'auto'
+    })
     
-    // Salvar na pasta public/uploads
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-    const filepath = path.join(uploadDir, filename)
-    
-    await writeFile(filepath, buffer)
-    
-    // Retornar URL relativa
-    const url = `/uploads/${filename}`
-    
-    return NextResponse.json({ url })
+    // Retornar URL da Cloudinary
+    return NextResponse.json({ url: result.secure_url })
   } catch (error) {
     console.error('Error uploading file:', error)
     return NextResponse.json(
