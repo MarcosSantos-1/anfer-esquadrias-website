@@ -49,10 +49,10 @@ export default function MoveisIndustriaisPage() {
   const loadProducts = async () => {
     try {
       const res = await fetch('/api/furniture')
-      const data = await res.json()
-      setProducts(data.filter((p: FurnitureProduct) => p.isActive !== false))
+      const data: FurnitureProduct[] = await res.json()
+      setProducts(data.filter((p) => p.isActive !== false))
       
-      const uniqueCategories = [...new Set(data.map((p: FurnitureProduct) => p.category))]
+      const uniqueCategories = [...new Set(data.map((p) => p.category))] as string[]
       setCategories(uniqueCategories)
     } catch (error) {
       console.error('Erro ao carregar produtos:', error)
