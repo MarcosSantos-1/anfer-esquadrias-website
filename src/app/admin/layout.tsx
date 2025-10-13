@@ -10,7 +10,13 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Layout sem Header e Footer - apenas o conteúdo
-  return <>{children}</>
+  // Layout sem Header e Footer do site público
+  return (
+    <html lang="pt-BR">
+      <body suppressHydrationWarning>
+        {children}
+      </body>
+    </html>
+  )
 }
 
