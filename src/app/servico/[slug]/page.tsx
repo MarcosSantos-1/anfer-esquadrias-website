@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MessageCircle, Mail, Wrench, CheckCircle, ArrowLeft } from 'lucide-react'
 import ImageCarousel from '@/components/ImageCarousel'
+import { services as staticServices } from '@/data/services'
 
 interface Service {
   id: string
@@ -25,41 +26,17 @@ interface ServicePageProps {
 }
 
 async function getService(slug: string): Promise<Service | null> {
-  try {
-    // Em produção, use a URL completa do seu site
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/services`, {
-      cache: 'no-store' // Sempre buscar dados atualizados
-    })
-    
-    if (!res.ok) return null
-    
-    const services = await res.json()
-    return services.find((s: Service) => s.slug === slug) || null
-  } catch (error) {
-    console.error('Erro ao buscar serviço:', error)
-    return null
-  }
+  // Usar dados estáticos durante build
+  const service = staticServices.find((s) => s.slug === slug)
+  return service || null
 }
 
 async function getAllServices(): Promise<Service[]> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/services`, {
-      cache: 'no-store'
-    })
-    
-    if (!res.ok) return []
-    return res.json()
-  } catch (error) {
-    console.error('Erro ao buscar serviços:', error)
-    return []
-  }
+  return staticServices
 }
 
 export async function generateStaticParams() {
-  const services = await getAllServices()
-  return services.map((service) => ({
+  return staticServices.map((service) => ({
     slug: service.slug,
   }))
 }
