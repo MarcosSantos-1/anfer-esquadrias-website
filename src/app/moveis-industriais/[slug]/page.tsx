@@ -99,7 +99,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <div>
                   <p className="text-gray-200 text-sm mb-1">A partir de</p>
                   <p className="text-4xl font-bold text-green-300">{formatPrice(product.basePrice)}</p>
-                  <p className="text-gray-300 text-sm mt-1">Tamanho padrão: {product.standardWidth}x{product.standardHeight}x{product.standardDepth} {product.sizeUnit}</p>
+                  <p className="text-gray-300 text-sm mt-1">Tamanho padrão: {product.standardSize.width}x{product.standardSize.height}x{product.standardSize.depth} {product.standardSize.unit}</p>
                 </div>
                 {product.customizable && (
                   <div className="border-l border-white/20 pl-4">
@@ -191,9 +191,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                       Dimensões Padrão
                     </h4>
                     <ul className="space-y-2 text-gray-600">
-                      <li>• Largura: {product.standardWidth} {product.sizeUnit}</li>
-                      <li>• Altura: {product.standardHeight} {product.sizeUnit}</li>
-                      <li>• Profundidade: {product.standardDepth} {product.sizeUnit}</li>
+                      <li>• Largura: {product.standardSize.width} {product.standardSize.unit}</li>
+                      <li>• Altura: {product.standardSize.height} {product.standardSize.unit}</li>
+                      <li>• Profundidade: {product.standardSize.depth} {product.standardSize.unit}</li>
                     </ul>
                   </div>
 
