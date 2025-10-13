@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
+    "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
-    "postinstall": "prisma generate && node scripts/create-upload-dir.js",
+    "postinstall": "prisma generate",
     "setup": "prisma generate && prisma db push && npm run db:seed && node scripts/create-upload-dir.js"
   },
   "prisma": {
@@ -35,6 +36,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.1",
     "react-toastify": "^11.0.5",
+    "resend": "^6.1.2",
     "twilio": "^5.10.2",
     "zod": "^3.22.4"
   },

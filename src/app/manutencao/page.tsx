@@ -109,7 +109,7 @@ export default function ManutencaoPage() {
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-sm text-gray-800">
-              📧 <strong>E-mail enviado</strong> para: oficial.anferesquadrias@gmail.com
+              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com
               <br />
               💬 <strong>WhatsApp</strong> abrindo automaticamente...
               <br />
@@ -158,9 +158,9 @@ export default function ManutencaoPage() {
                 <Phone className="mr-2 h-5 w-5" />
                 <span className="font-semibold">(11) 94009-3757</span>
               </a>
-              <a href="mailto:oficial.anferesquadrias@gmail.com" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
+              <a href="mailto:contato@anferesquadrias.com" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
                 <Mail className="mr-2 h-5 w-5" />
-                <span className="font-semibold">oficial.anferesquadrias@gmail.com</span>
+                <span className="font-semibold">contato@anferesquadrias.com</span>
               </a>
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function ManutencaoPage() {
       {/* Form Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Form */}
               <div className="lg:col-span-2">
@@ -241,7 +241,7 @@ export default function ManutencaoPage() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Tipo de Serviço *
@@ -392,7 +392,7 @@ export default function ManutencaoPage() {
                   </div>
                 </div>
 
-                <div className="bg-red-50 rounded-xl p-6 border-2 border-red-200">
+                <div className="bg-red-50 rounded-xl p-4 border-2 border-red-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     Contato Direto
                   </h3>
@@ -405,8 +405,8 @@ export default function ManutencaoPage() {
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
-                      <a href="mailto:oficial.anferesquadrias@gmail.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
-                        oficial.anferesquadrias@gmail.com
+                      <a href="mailto:contato@anferesquadrias.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
+                      contato@anferesquadrias.com
                       </a>
                     </div>
                   </div>

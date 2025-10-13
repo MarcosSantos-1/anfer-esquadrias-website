@@ -85,24 +85,24 @@ export default function SobrePage() {
       </section>
 
       {/* Company Story */}
-      <section className="py-20">
+      <section className="py-10 max-w-5xl mx-auto">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
                 Nossa História
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 mb-6 text-justify">
                 A ANFER Esquadrias Metálicas foi fundada com o objetivo de oferecer 
                 soluções em esquadrias metálicas de alta qualidade para o mercado residencial 
                 e industrial.
               </p>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 mb-6 text-justify">
                 Ao longo dos anos, expandimos nossos serviços e hoje atendemos uma ampla 
                 gama de clientes, desde residências até grandes indústrias, sempre mantendo 
                 nosso compromisso com a qualidade e a satisfação do cliente.
               </p>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-600 text-justify">
                 Recentemente, lançamos nossa linha de móveis industriais personalizados, 
                 combinando nossa experiência em metalurgia com design funcional e moderno.
               </p>

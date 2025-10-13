@@ -82,7 +82,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-red-400 mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Rua Rio Meriti, 120<br/>São Miguel Pta - São Paulo - SP</span>
+                <span className="text-gray-300">Rua Arlindo Pascoal, 120<br/>São Miguel Pta - São Paulo - SP</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-red-400" />

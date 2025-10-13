@@ -33,7 +33,7 @@ export default function Header() {
             </div>
           </div>
           <div className="hidden md:block">
-            <span>Rua Rio Meriti, 120 - São Miguel Pta - SP</span>
+            <span>Rua Arlindo Pascoal, 120 - São Miguel Pta - SP</span>
           </div>
         </div>
       </div>

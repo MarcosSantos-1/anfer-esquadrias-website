@@ -78,12 +78,12 @@ export default function ContatoPage() {
       icon: Phone,
       title: 'Telefone',
       details: '(11) 94009-3757',
-      description: 'Segunda a Sexta, 8h às 18h'
+      description: 'Segunda a Sábado, 8h às 18h'
     },
     {
       icon: Mail,
       title: 'E-mail',
-      details: 'oficial.anferesquadrias@gmail.com',
+      details: 'contato@anferesquadrias.com',
       description: 'Respondemos em até 24 horas'
     },
     {
@@ -96,7 +96,7 @@ export default function ContatoPage() {
       icon: Clock,
       title: 'Horário',
       details: '8h às 18h',
-      description: 'Segunda a Sexta-feira'
+      description: 'Segunda a Sábado'
     }
   ]
 
@@ -120,7 +120,7 @@ export default function ContatoPage() {
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-sm text-gray-800">
-              📧 <strong>E-mail enviado</strong> para: oficial.anferesquadrias@gmail.com
+              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com
               <br />
               💬 <strong>WhatsApp</strong> abrindo automaticamente...
               <br />
@@ -410,7 +410,7 @@ export default function ContatoPage() {
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
                     <a href="mailto:oficial.anferesquadrias@gmail.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
-                      oficial.anferesquadrias@gmail.com
+                    contato@anferesquadrias.com
                     </a>
                   </div>
                 </div>

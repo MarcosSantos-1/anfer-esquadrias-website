@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import * as nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import twilio from 'twilio'
 
 export async function POST(req: NextRequest) {
@@ -23,23 +23,12 @@ export async function POST(req: NextRequest) {
     }
 
     // ============================================
-    // 1. ENVIAR E-MAIL
+    // 1. ENVIAR E-MAIL (RESEND)
     // ============================================
-    console.log('🔍 DEBUG EMAIL:');
-    console.log('EMAIL_USER:', process.env.EMAIL_USER ? '✅ Configurado' : '❌ NÃO CONFIGURADO');
-    console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ Configurado' : '❌ NÃO CONFIGURADO');
-    
     try {
-      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-        console.log('📧 Tentando enviar e-mail...');
+      if (process.env.RESEND_API_KEY && process.env.EMAIL_USER) {
         
-        const transporter = nodemailer.createTransporter({
-          service: 'gmail',
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-          }
-        })
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         const emailSubject = type === 'manutencao' 
           ? `[MANUTENÇÃO] ${subject || 'Nova solicitação'}` 
@@ -155,30 +144,25 @@ export async function POST(req: NextRequest) {
           </html>
         `
 
-        const mailInfo = await transporter.sendMail({
-          from: `"Site ANFER Esquadrias" <${process.env.EMAIL_USER}>`,
-          to: 'oficial.anferesquadrias@gmail.com',
+        const { data: emailData, error: emailError } = await resend.emails.send({
+          from: 'ANFER Esquadrias <onboarding@resend.dev>',
+          to: ['oficial.anferesquadrias@gmail.com'],
           subject: emailSubject,
           html: htmlContent,
-          replyTo: email
+          reply_to: email
         })
 
+        if (emailError) {
+          throw emailError;
+        }
+
         sendStatus.email.success = true
-        console.log('✅ E-mail enviado com sucesso!');
-        console.log('📬 Message ID:', mailInfo.messageId);
-        console.log('📧 Para:', 'oficial.anferesquadrias@gmail.com')
       } else {
-        sendStatus.email.error = 'Configuração de e-mail não encontrada (.env.local)'
-        console.log('⚠️ E-mail não configurado')
+        sendStatus.email.error = 'Configuração de e-mail não encontrada (RESEND_API_KEY)'
       }
     } catch (error) {
       sendStatus.email.error = error instanceof Error ? error.message : 'Erro desconhecido'
-      console.error('❌ ERRO AO ENVIAR E-MAIL:');
-      console.error('Erro completo:', error);
-      if (error instanceof Error) {
-        console.error('Mensagem:', error.message);
-        console.error('Stack:', error.stack);
-      }
+      console.error('Erro ao enviar e-mail:', error);
     }
 
     // ============================================
@@ -215,14 +199,12 @@ export async function POST(req: NextRequest) {
         await twilioClient.messages.create(smsConfig)
 
         sendStatus.sms.success = true
-        console.log('✅ SMS enviado com sucesso!')
       } else {
-        sendStatus.sms.error = 'Configuração do Twilio não encontrada (.env.local)'
-        console.log('⚠️ SMS não configurado (Twilio)')
+        sendStatus.sms.error = 'Configuração do Twilio não encontrada'
       }
     } catch (error) {
       sendStatus.sms.error = error instanceof Error ? error.message : 'Erro desconhecido'
-      console.error('❌ Erro ao enviar SMS:', error)
+      console.error('Erro ao enviar SMS:', error)
     }
 
     // ============================================
@@ -246,13 +228,12 @@ export async function POST(req: NextRequest) {
 
       if (saveResponse.ok) {
         sendStatus.database.success = true
-        console.log('✅ Mensagem salva no banco de dados!')
       } else {
         sendStatus.database.error = 'Erro ao salvar no banco'
       }
     } catch (error) {
       sendStatus.database.error = error instanceof Error ? error.message : 'Erro desconhecido'
-      console.error('❌ Erro ao salvar no banco:', error)
+      console.error('Erro ao salvar no banco:', error)
     }
 
     // ============================================
