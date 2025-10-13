@@ -3,21 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MessageCircle, Mail, Wrench, CheckCircle, ArrowLeft } from 'lucide-react'
 import ImageCarousel from '@/components/ImageCarousel'
-import { services as staticServices } from '@/data/services'
-
-interface Service {
-  id: string
-  title: string
-  slug: string
-  category: string
-  description: string
-  fullDescription: string
-  images: string[]
-  features: string[]
-  seoTitle: string
-  seoDescription: string
-  isActive: boolean
-}
+import { services as staticServices, Service } from '@/data/services'
 
 interface ServicePageProps {
   params: Promise<{
