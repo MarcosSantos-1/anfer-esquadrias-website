@@ -1,13 +1,16 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import { ReactNode } from 'react'
 
-export default function Template({ children }: { children: React.ReactNode }) {
+interface LayoutWrapperProps {
+  children: ReactNode
+  header: ReactNode
+  footer: ReactNode
+}
+
+export default function LayoutWrapper({ children, header, footer }: LayoutWrapperProps) {
   const pathname = usePathname()
-  
-  // Não mostrar Header e Footer em rotas admin
   const isAdminRoute = pathname?.startsWith('/admin')
   
   if (isAdminRoute) {
@@ -16,11 +19,11 @@ export default function Template({ children }: { children: React.ReactNode }) {
   
   return (
     <>
-      <Header />
+      {header}
       <main className="min-h-screen">
         {children}
       </main>
-      <Footer />
+      {footer}
     </>
   )
 }

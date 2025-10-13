@@ -383,15 +383,6 @@ export default function AdminPage() {
               Entrar
             </button>
           </form>
-          <div className="mt-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg">
-            <div className="flex items-start">
-              <AlertCircle className="h-5 w-5 text-yellow-600 mr-2 mt-0.5" />
-              <div className="text-sm text-yellow-800">
-                <p className="font-semibold">Credenciais:</p>
-                <p>admin@anfer.com / admin123</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     )
