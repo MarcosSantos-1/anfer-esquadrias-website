@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
           to: ['oficial.anferesquadrias@gmail.com'],
           subject: emailSubject,
           html: htmlContent,
-          reply_to: email
+          replyTo: email
         })
 
         if (emailError) {
