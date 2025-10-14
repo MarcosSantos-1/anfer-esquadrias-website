@@ -83,7 +83,7 @@ export default function ContatoPage() {
     {
       icon: Mail,
       title: 'E-mail',
-      details: 'contato@anferesquadrias.com',
+      details: 'contato@anferesquadrias.com.br',
       description: 'Respondemos em até 24 horas'
     },
     {
@@ -120,7 +120,7 @@ export default function ContatoPage() {
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-sm text-gray-800">
-              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com
+              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com.br
               <br />
               💬 <strong>WhatsApp</strong> abrindo automaticamente...
               <br />
@@ -409,8 +409,8 @@ export default function ContatoPage() {
                   </div>
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
-                    <a href="mailto:oficial.anferesquadrias@gmail.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
-                    contato@anferesquadrias.com
+                    <a href="mailto:contato@anferesquadrias.com.br" className="text-gray-900 font-semibold hover:text-red-600 break-all">
+                    contato@anferesquadrias.com.br
                     </a>
                   </div>
                 </div>

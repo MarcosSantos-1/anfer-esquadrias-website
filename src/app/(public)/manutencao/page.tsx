@@ -109,7 +109,7 @@ export default function ManutencaoPage() {
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-sm text-gray-800">
-              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com
+              📧 <strong>E-mail enviado</strong> para: contato@anferesquadrias.com.br
               <br />
               💬 <strong>WhatsApp</strong> abrindo automaticamente...
               <br />
@@ -158,9 +158,9 @@ export default function ManutencaoPage() {
                 <Phone className="mr-2 h-5 w-5" />
                 <span className="font-semibold">(11) 94009-3757</span>
               </a>
-              <a href="mailto:contato@anferesquadrias.com" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
+              <a href="mailto:contato@anferesquadrias.com.br" className="flex items-center justify-center hover:text-yellow-300 transition-colors">
                 <Mail className="mr-2 h-5 w-5" />
-                <span className="font-semibold">contato@anferesquadrias.com</span>
+                <span className="font-semibold">contato@anferesquadrias.com.br</span>
               </a>
             </div>
           </div>
@@ -405,8 +405,8 @@ export default function ManutencaoPage() {
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
-                      <a href="mailto:contato@anferesquadrias.com" className="text-gray-900 font-semibold hover:text-red-600 break-all">
-                      contato@anferesquadrias.com
+                      <a href="mailto:contato@anferesquadrias.com.br" className="text-gray-900 font-semibold hover:text-red-600 break-all">
+                      contato@anferesquadrias.com.br
                       </a>
                     </div>
                   </div>

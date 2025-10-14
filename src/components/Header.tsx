@@ -29,7 +29,7 @@ export default function Header() {
             </a>
             <div className="flex items-center space-x-1 py-1">
               <Mail className="h-4 w-4" />
-              <span>contato@anferesquadrias.com</span>
+              <span>contato@anferesquadrias.com.br</span>
             </div>
           </div>
           <div className="hidden md:block">

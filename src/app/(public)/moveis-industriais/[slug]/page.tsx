@@ -364,7 +364,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </a>
                   <div className="flex items-center text-gray-700">
                     <Mail className="h-5 w-5 mr-2 text-red-600" />
-                    contato@anferesquadrias.com
+                    contato@anferesquadrias.com.br
                   </div>
                 </div>
               </div>

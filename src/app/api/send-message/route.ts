@@ -145,9 +145,9 @@ export async function POST(req: NextRequest) {
         `
 
         const { data: emailData, error: emailError } = await resend.emails.send({
-          from: 'ANFER Esquadrias <onboarding@resend.dev>',
-          to: ['oficial.anferesquadrias@gmail.com'],
-          subject: emailSubject,
+        from: 'ANFER Esquadrias <onboarding@resend.dev>',
+        to: ['contato@anferesquadrias.com.br'],
+        subject: emailSubject,
           html: htmlContent,
           replyTo: email
         })
