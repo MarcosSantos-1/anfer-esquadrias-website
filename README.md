@@ -59,10 +59,6 @@ O site estará disponível em: http://localhost:3000
 
 Para acessar o painel administrativo, vá para: http://localhost:3000/admin
 
-**Credenciais padrão:**
-- E-mail: admin@anfer.com
-- Senha: admin123
-
 ⚠️ **IMPORTANTE**: Altere essas credenciais em produção!
 
 ## 📞 Informações de Contato
